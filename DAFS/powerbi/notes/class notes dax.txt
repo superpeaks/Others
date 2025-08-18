@@ -1,0 +1,17 @@
+1. Total qty sold out in grade A
+2. Total amount sold out
+3. Max amt
+4. Avg amt
+5. Min qty
+6. Sales person whos name starts with 'A'
+7. How many qty sold out be each sales person
+8. Total amt sold out by each sales person for Grade 'B'
+9. Total qty sold out for each products
+10. Total qty for each product name fo Grade "A" and total qty greater than 1
+11. Total amt for each product name for qty greater than 1
+12. Sales person who soldout amt 1000
+13. Total amt for each product which total amt is greater than 400
+14. Total amt for each product name which total amt from 100 to 500
+15. Total amt for each sales person
+16. Max qty for each sales person
+17. Total amt for each sales person for date from 3 jun 2025 to 5 jul 2025
