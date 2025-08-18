@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import STL
+
+# Load the data from CSV file
+data = pd.read_csv('data.csv')
+
+# Set the 'Material' column as the index
+data.set_index('Material', inplace=True)
+
+# Select the columns containing demand data (January 2021 to December 2022)
+demand_data = data.loc[:, 'Jan 2021':'Dec 2022']
+
+# Transpose the data to have materials as rows and months as columns
+demand_data = demand_data.transpose()
+
+# Perform time series analysis and plot decomposition for each material
+for material in demand_data.columns:
+    material_data = demand_data[material]
+
+    # Perform decomposition using STL
+    decomposition = STL(material_data, seasonal=12)
+    decomposed_result = decomposition.fit()
+
+    # Plot the decomposition components
+    plt.figure(figsize=(10, 8))
+    decomposition.plot()
+    plt.title(f"Decomposition of {material} Time Series")
+    plt.show()

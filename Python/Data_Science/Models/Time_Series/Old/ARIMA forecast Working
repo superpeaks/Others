@@ -1,0 +1,54 @@
+import pandas as pd
+from datetime import datetime
+from statsmodels.tsa.arima.model import ARIMA
+
+# Load the data from Excel file
+data = pd.read_excel('data.xlsx')
+
+# Set the 'Dates' column as the index
+data.set_index('Dates', inplace=True)
+
+# Select the columns containing demand data (Material 1 to Material 12)
+demand_data = data.iloc[:, 1:13]
+
+# Perform time series analysis for each material
+forecasts = []
+
+for material in demand_data.columns:
+    material_data = demand_data[material]
+
+    # Step 1: Define ARIMA Model
+    model = ARIMA(material_data, order=(1, 1, 0))  # Adjust the order as per your data characteristics
+
+    # Step 2: Fit the model
+    model_fit = model.fit()
+
+    # Step 3: Forecasting
+    forecast = model_fit.forecast(steps=24)  # Forecasting for 24 months
+
+    # Append the forecasted values to the forecasts list
+    forecasts.append((material, forecast))
+
+# Create a new DataFrame for the forecasts
+forecast_data = pd.DataFrame()
+
+# Populate the DataFrame with the forecasts
+for material, forecast in forecasts:
+    forecast_data[material] = forecast
+
+# Get the current date and time for the filename
+current_datetime = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+
+# Define the output filename
+output_filename = f'forecasts_{current_datetime}.xlsx'
+
+# Save the forecasts to the same Excel file with date and time
+forecast_data.to_excel(output_filename)
+
+print(f"Forecasts saved to {output_filename}")
+
+
+
+
+
+# For 12 months forcast and format should be Dates(24 month i thing) and material1 demand....material n demand as coulumn name and values bellow
