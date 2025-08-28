@@ -11,19 +11,26 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env_path = BASE_DIR / '.env'  # Points directly to .env file
+
+env = environ.Env()
+environ.Env.read_env(env_path)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&1g)+%hhn3l&946)*g6x3lzt#thm8@&yp4nbfbg+f0e-+ty2l2'
+SECRET_KEY=env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG=env('DEBUG')
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -78,10 +85,24 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env('DB1_ENGINE'),
+        'NAME': env('DB1_NAME'),
+        'USER': env('DB1_USER'),
+        'PASSWORD': env('DB1_PASSWORD'),
+        'HOST': env('DB1_HOST'),
+        'PORT': env('DB1_PORT')
+        },
+    'secondary': {
+        'ENGINE': env('DB1_ENGINE'),
+        'NAME': env('DB2_NAME'),
+        'USER': env('DB1_USER'),
+        'PASSWORD': env('DB1_PASSWORD'),
+        'HOST': env('DB1_HOST'),
+        'PORT': env('DB1_PORT')
     }
 }
 
@@ -123,7 +144,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    '/myapp/static/inside'
+    BASE_DIR / 'myapp' / 'static',
 ]
 
 # Default primary key field type
