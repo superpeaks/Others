@@ -1,8 +1,8 @@
 """
-URL configuration for myproject project.
+URL configuration for myapp project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -16,8 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+
+handler404 = 'myapp.views.custom_page_not_found'
 
 urlpatterns = [
+    path("", include("blog.urls")),
     path('admin/', admin.site.urls),
-    path("",include("myapp.urls")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

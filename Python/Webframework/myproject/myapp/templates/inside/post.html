@@ -1,0 +1,39 @@
+{% extends 'inside/include/base.html' %}
+
+
+{% include 'inside/include/header.html' %}
+
+{% block my_content %}
+    <div class="container-fluid ">
+        <div class="d-flex justify-content-center mt-5">
+            <div class="d-flex gap-3 flex-column">
+                <h3>Post Form</h3>
+                <form method="post" class="row g-3">
+                {% csrf_token %}
+                    <div class="col-md-6">
+                        <label for="titile" class="form-label">Titile</label>
+                        <input type="text" class="form-control" id="titile" name="titile" >
+                    </div>
+                    <div class="col-md-6">
+                        <label for="content" class="form-label">Content</label>
+                        <input type="content" class="form-control" id="content" name="content" >
+                    </div>
+                    <div class="col-12">
+                        <label for="img_url" class="form-label">Img_url</label>
+                        <textarea class="form-control" id="img_url" name="img_url" rows="4" ></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label for="category" class="form-label">Category</label>
+                        <textarea class="form-control" id="category" name="categoty" rows="4" ></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
+
+{% include 'inside/include/footer.html' %}

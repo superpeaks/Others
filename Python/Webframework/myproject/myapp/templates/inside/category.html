@@ -1,0 +1,27 @@
+{% extends 'inside/include/base.html' %}
+
+
+{% include 'inside/include/header.html' %}
+
+{% block my_content %}
+    <div class="container-fluid ">
+        <div class="d-flex justify-content-center mt-5">
+            <div class="d-flex gap-3 flex-column">
+                <h3>Category Form</h3>
+                <form method="post" class="row g-3">
+                {% csrf_token %}
+                    <div class="col-md-6">
+                        <label for="category" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="category" name="category" >
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
+
+{% include 'inside/include/footer.html' %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from .forms import ContactForm
+from .forms import ContactForm, MyPost, Category
 from .models import MyAppForm
 
 # Create your views here.
@@ -40,3 +40,41 @@ def contact_sucess(request):
     content = {'title':'My Blog sucess Page',
             'header_title':'My sucess Title'}
     return render(request,'inside/contact_sucess.html',content)
+
+
+def post(request):
+    if request.method == "POST":
+        form = MyPost(request.POST)
+
+        if form.is_valid():
+            MyPost.objects.create(
+                title = form.cleaned_data['title'],
+                content = form.cleaned_data['content'],
+                img_url = form.cleaned_data['img_url'],
+                category = form.cleaned_data['category']
+            )
+            return redirect('contact_sucess')
+    else:
+        form = MyPost()
+            
+    content = {'title':'My Blog post insert update page',
+            'header_title':'Add/Change post',
+            'form':form}
+    return render(request,'inside/post.html',content)
+
+def category(request):
+    if request.method == "POST":
+        form = Category(request.POST)
+
+        if form.is_valid():
+            Category.objects.create(
+                category = form.cleaned_data['category']
+            )
+
+    content = {'title':'My Blog category insert update page',
+            'header_title':'Add/Change category'}
+    return render(request,'inside/category.html',content)
+
+def root(request):
+    return redirect('home')
+    
